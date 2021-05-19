@@ -6,5 +6,10 @@
         {
             return (initial.x - 1, initial.y);
         }
+
+        public ICardinalite TurnAntiClockWise()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
