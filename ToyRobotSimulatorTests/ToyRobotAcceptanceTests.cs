@@ -24,12 +24,9 @@ namespace ToyRobotSimulatorTests
         public async Task AcceptanceExampleATest()
         {
             var mock = new Mock<IMyOutput>();
-            ITableTop tabletop = new TableTop(new RobotFactory(), _valueTuple, mock.Object);
-            IReader reader = new FileReader();
-            IInterpreter interpreter = new CommandInterpreter();
-            IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(reader, tabletop, interpreter);
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExampleA.txt");
-            
+            var trs = PrepareToyRobotSimulator(mock);
+
             await trs.Command(filePath);
             
             mock.Verify(x => x.Print("0,1,NORTH"));
@@ -39,15 +36,21 @@ namespace ToyRobotSimulatorTests
         public async Task AcceptanceExampleBTest()
         {
             var mock = new Mock<IMyOutput>();
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExampleB.txt");
+            var trs = PrepareToyRobotSimulator(mock);
+
+            await trs.Command(filePath);
+            
+            mock.Verify(x => x.Print("0,0,WEST"));
+        }
+
+        private IToyRobotSimulator PrepareToyRobotSimulator(Mock<IMyOutput> mock)
+        {
             ITableTop tabletop = new TableTop(new RobotFactory(), _valueTuple, mock.Object);
             IReader reader = new FileReader();
             IInterpreter interpreter = new CommandInterpreter();
             IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(reader, tabletop, interpreter);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExampleB.txt");
-            
-            await trs.Command(filePath);
-            
-            mock.Verify(x => x.Print("0,0,WEST"));
+            return trs;
         }
     }
 }
