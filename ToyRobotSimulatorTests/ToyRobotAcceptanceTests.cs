@@ -18,7 +18,8 @@ namespace ToyRobotSimulatorTests
             var mock = new Mock<IMyOutput>();
             ITableTop tabletop = new TableTop();
             IReader reader = new FileReader();
-            IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(mock.Object, reader, tabletop);
+            IInterpreter interpreter = new CommandInterpreter();
+            IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(mock.Object, reader, tabletop, interpreter);
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExampleA.txt");
             
             trs.Command(filePath);

@@ -2,7 +2,10 @@
 {
     public class ToyRobotSimulator : IToyRobotSimulator
     {
-        public ToyRobotSimulator(IMyOutput mockObject, IReader mock1Object, ITableTop tableTop)
+        public ToyRobotSimulator(IMyOutput mockObject, 
+            IReader mock1Object, 
+            ITableTop tableTop,
+            IInterpreter interpreter)
         {
             throw new System.NotImplementedException();
         }
