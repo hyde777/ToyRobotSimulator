@@ -14,13 +14,13 @@ namespace ToyRobotSimulatorTests
         private readonly (uint X, uint Y) _southWestCorner;
         private IMyOutput _mockObject;
 
-        public TableTopTest(IMyOutput mockObject)
+        public TableTopTest()
         {
             _robotfactoryMock = new Mock<IRobotFactory>();
             _dimensions = (5, 5);
             _tableTop = new TableTop(_robotfactoryMock.Object, _dimensions, _mockObject);
             _southWestCorner = ((uint)0,(uint)0);
-            _mockObject = mockObject;
+            _mockObject = new Mock<IMyOutput>().Object;
         }
 
         [Test]
@@ -135,6 +135,21 @@ namespace ToyRobotSimulatorTests
             mock.Verify(rob => rob.TurnRight(), Times.Never);
             mock.Verify(rob => rob.TurnLeft(), Times.Never);
             mock.Verify(rob => rob.Move(_dimensions), Times.Never);
+            mock.Verify(rob => rob.Report(), Times.Never);
+        }
+
+        [Test]
+        public void ReportIfAskedAboutIt()
+        {
+            var mock = new Mock<IRobot>();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+                .Returns(Task.FromResult(mock.Object));
+            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+
+            _tableTop.Execute(new Action {Type = ActionEnum.Report});
+
+            mock.Verify(rob => rob.Report(), Times.Once);
+
         }
     }
 }

@@ -8,6 +8,7 @@ namespace ToyRobotSimulator
         Robot Move((uint X, uint Y) valueTuple);
         Robot TurnLeft();
         Robot TurnRight();
+        void Report();
     }
 
     public record Robot : IRobot
@@ -34,5 +35,9 @@ namespace ToyRobotSimulator
         public Robot TurnLeft() => new(_position, _direction.TurnAntiClockWise());
 
         public Robot TurnRight() => new(_position, _direction.TurnClockWise());
+        public void Report()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

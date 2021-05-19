@@ -5,6 +5,7 @@
         Place,
         Move,
         Left,
-        Right
+        Right,
+        Report
     }
 }

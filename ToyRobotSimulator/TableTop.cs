@@ -31,13 +31,21 @@ namespace ToyRobotSimulator
             }
             if(_robotPlaced is null) {return;}
 
-            _robotPlaced = action.Type switch
+            switch (action.Type)
             {
-                ActionEnum.Move => _robotPlaced.Move(_dimension),
-                ActionEnum.Left => _robotPlaced.TurnLeft(),
-                ActionEnum.Right => _robotPlaced.TurnRight(),
-                _ => _robotPlaced
-            };
+                case ActionEnum.Move:
+                    _robotPlaced = _robotPlaced.Move(_dimension);
+                    break;
+                case ActionEnum.Left:
+                    _robotPlaced = _robotPlaced.TurnLeft();
+                    break;
+                case ActionEnum.Right:
+                    _robotPlaced = _robotPlaced.TurnRight();
+                    break;
+                case ActionEnum.Report:
+                    _robotPlaced.Report();
+                    break;
+            }
         }
     }
 }
