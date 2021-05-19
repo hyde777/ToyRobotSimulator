@@ -19,9 +19,8 @@ namespace ToyRobotSimulator
             return new(_direction.CalculateMovement(_position), _direction);
         }
 
-        public Robot TurnLeft()
-        {
-            return new(_position, _direction.TurnAntiClockWise());
-        }
+        public Robot TurnLeft() => new(_position, _direction.TurnAntiClockWise());
+
+        public Robot TurnRight() => new(_position, _direction.TurnAntiClockWise());
     }
 }

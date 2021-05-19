@@ -57,7 +57,7 @@ namespace ToyRobotSimulatorTests
         }
 
         [Test]
-        public void ShouldTurnRobotFromNorthToWestWhenLeft()
+        public void ShouldTurnRobotAntiClockWiseWhenLeft()
         {
             (uint x, uint y) position = (0,2);
             var orientation = new Mock<IOrientation>();
@@ -66,6 +66,18 @@ namespace ToyRobotSimulatorTests
             robot.TurnLeft();
             
             orientation.Verify(x => x.TurnAntiClockWise(), Times.Once);
+        }
+
+        [Test]
+        public void ShouldTurnRobotClockWiseWhenRight()
+        {
+            (uint x, uint y) position = (0,2);
+            var orientation = new Mock<IOrientation>();
+            var robot = new Robot(position, orientation.Object);
+
+            robot.TurnRight();
+            
+            orientation.Verify(x => x.TurnClockWise(), Times.Once);
         }
     }
 }
