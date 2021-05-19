@@ -7,12 +7,14 @@ namespace ToyRobotSimulator
     {
         private readonly IRobotFactory _robotFactory;
         private readonly (uint X, uint Y) _dimension;
+        private readonly IMyOutput _output;
         private IRobot _robotPlaced;
 
-        public TableTop(IRobotFactory robotFactory, (uint X, uint Y) dimension)
+        public TableTop(IRobotFactory robotFactory, (uint X, uint Y) dimension, IMyOutput output)
         {
             _robotFactory = robotFactory;
             _dimension = dimension;
+            _output = output;
         }
 
         public async Task Execute(Action action)
@@ -28,21 +30,14 @@ namespace ToyRobotSimulator
                 _robotPlaced = await _robotFactory.Create(action.Position, Direction.North);
             }
             if(_robotPlaced is null) {return;}
-            
-            if (ActionEnum.Move == action.Type)
-            {
-                _robotPlaced = _robotPlaced.Move(_dimension);
-            }
 
-            if (ActionEnum.Left == action.Type)
+            _robotPlaced = action.Type switch
             {
-                _robotPlaced = _robotPlaced.TurnLeft();
-            }
-
-            if (ActionEnum.Right == action.Type)
-            {
-                _robotPlaced = _robotPlaced.TurnRight();
-            }
+                ActionEnum.Move => _robotPlaced.Move(_dimension),
+                ActionEnum.Left => _robotPlaced.TurnLeft(),
+                ActionEnum.Right => _robotPlaced.TurnRight(),
+                _ => _robotPlaced
+            };
         }
     }
 }

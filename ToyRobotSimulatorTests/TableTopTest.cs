@@ -12,13 +12,15 @@ namespace ToyRobotSimulatorTests
         private readonly ITableTop _tableTop;
         private readonly (uint X, uint Y) _dimensions;
         private readonly (uint X, uint Y) _southWestCorner;
+        private IMyOutput _mockObject;
 
-        public TableTopTest()
+        public TableTopTest(IMyOutput mockObject)
         {
             _robotfactoryMock = new Mock<IRobotFactory>();
             _dimensions = (5, 5);
-            _tableTop = new TableTop(_robotfactoryMock.Object, _dimensions);
+            _tableTop = new TableTop(_robotfactoryMock.Object, _dimensions, _mockObject);
             _southWestCorner = ((uint)0,(uint)0);
+            _mockObject = mockObject;
         }
 
         [Test]

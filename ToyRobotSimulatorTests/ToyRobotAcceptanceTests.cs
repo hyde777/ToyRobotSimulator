@@ -23,10 +23,10 @@ namespace ToyRobotSimulatorTests
         public void AcceptanceExampleATest()
         {
             var mock = new Mock<IMyOutput>();
-            ITableTop tabletop = new TableTop(Mock.Of<IRobotFactory>(), _valueTuple);
+            ITableTop tabletop = new TableTop(new RobotFactory(), _valueTuple, mock.Object);
             IReader reader = new FileReader();
             IInterpreter interpreter = new CommandInterpreter();
-            IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(mock.Object, reader, tabletop, interpreter);
+            IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(reader, tabletop, interpreter);
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExampleA.txt");
             
             trs.Command(filePath);

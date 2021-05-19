@@ -2,17 +2,27 @@
 {
     public class ToyRobotSimulator : IToyRobotSimulator
     {
-        public ToyRobotSimulator(IMyOutput mockObject, 
-            IReader mock1Object, 
+        private readonly IReader _reader;
+        private readonly ITableTop _tableTop;
+        private readonly IInterpreter _interpreter;
+
+        public ToyRobotSimulator(IReader reader, 
             ITableTop tableTop,
             IInterpreter interpreter)
         {
-            throw new System.NotImplementedException();
+            _reader = reader;
+            _tableTop = tableTop;
+            _interpreter = interpreter;
         }
 
-        public void Command(string filePath)
+        public async void Command(string filePath)
         {
-            throw new System.NotImplementedException();
+            var readFromFile = _reader.ReadFromFile(filePath);
+            await foreach (var line in readFromFile)
+            {
+                var action = _interpreter.Convert(line);
+                await _tableTop.Execute(action);
+            }
         }
     }
 }

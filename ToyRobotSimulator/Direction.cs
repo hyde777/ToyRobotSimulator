@@ -4,6 +4,7 @@
     {
         North,
         South,
-        West
+        West,
+        East
     }
 }
