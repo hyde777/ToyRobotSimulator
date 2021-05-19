@@ -31,7 +31,7 @@ namespace ToyRobotSimulatorTests
             
             _tableTop.Execute(new Action
             {
-                Type = ActionEnum.Place,
+                ActionType = ActionType.Place,
                 Position = position,
                 Facing = direction
             });
@@ -47,7 +47,7 @@ namespace ToyRobotSimulatorTests
             var position = _dimensions;
             var action = new Action
             {
-                Type = ActionEnum.Place,
+                ActionType = ActionType.Place,
                 Position = position,
                 Facing = direction
             };
@@ -76,7 +76,7 @@ namespace ToyRobotSimulatorTests
         {
             return new()
             {
-                Type = ActionEnum.Place,
+                ActionType = ActionType.Place,
                 Position = position,
                 Facing = direction
             };
@@ -90,7 +90,7 @@ namespace ToyRobotSimulatorTests
                 .Returns(Task.FromResult(mock.Object));
             _tableTop.Execute(Place(_southWestCorner, Direction.North));
 
-            _tableTop.Execute(new Action {Type = ActionEnum.Move});
+            _tableTop.Execute(new Action {ActionType = ActionType.Move});
 
             mock.Verify(rob => rob.Move(_dimensions), Times.Once);
         }
@@ -103,7 +103,7 @@ namespace ToyRobotSimulatorTests
                 .Returns(Task.FromResult(mock.Object));
             _tableTop.Execute(Place(_southWestCorner, Direction.North));
 
-            _tableTop.Execute(new Action {Type = ActionEnum.Left});
+            _tableTop.Execute(new Action {ActionType = ActionType.Left});
 
             mock.Verify(rob => rob.TurnLeft(), Times.Once);
         }
@@ -116,7 +116,7 @@ namespace ToyRobotSimulatorTests
                 .Returns(Task.FromResult(mock.Object));
             _tableTop.Execute(Place(_southWestCorner, Direction.North));
 
-            _tableTop.Execute(new Action {Type = ActionEnum.Right});
+            _tableTop.Execute(new Action {ActionType = ActionType.Right});
 
             mock.Verify(rob => rob.TurnRight(), Times.Once);
         }
@@ -128,9 +128,9 @@ namespace ToyRobotSimulatorTests
             _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
                 .Returns(Task.FromResult(mock.Object));
 
-            _tableTop.Execute(new Action {Type = ActionEnum.Right});
-            _tableTop.Execute(new Action {Type = ActionEnum.Move});
-            _tableTop.Execute(new Action {Type = ActionEnum.Left});
+            _tableTop.Execute(new Action {ActionType = ActionType.Right});
+            _tableTop.Execute(new Action {ActionType = ActionType.Move});
+            _tableTop.Execute(new Action {ActionType = ActionType.Left});
 
             mock.Verify(rob => rob.TurnRight(), Times.Never);
             mock.Verify(rob => rob.TurnLeft(), Times.Never);
@@ -146,7 +146,7 @@ namespace ToyRobotSimulatorTests
                 .Returns(Task.FromResult(mock.Object));
             _tableTop.Execute(Place(_southWestCorner, Direction.North));
 
-            _tableTop.Execute(new Action {Type = ActionEnum.Report});
+            _tableTop.Execute(new Action {ActionType = ActionType.Report});
 
             mock.Verify(rob => rob.Report(), Times.Once);
 

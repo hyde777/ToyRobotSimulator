@@ -43,6 +43,18 @@ namespace ToyRobotSimulatorTests
             
             mock.Verify(x => x.Print("0,0,WEST"));
         }
+        
+        [Test]
+        public async Task AcceptanceExampleCTest()
+        {
+            var mock = new Mock<IMyOutput>();
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExampleC.txt");
+            var trs = PrepareToyRobotSimulator(mock);
+
+            await trs.Command(filePath);
+            
+            mock.Verify(x => x.Print("3,3,NORTH"));
+        }
 
         private IToyRobotSimulator PrepareToyRobotSimulator(Mock<IMyOutput> mock)
         {

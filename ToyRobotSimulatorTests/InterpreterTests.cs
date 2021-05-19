@@ -17,9 +17,25 @@ namespace ToyRobotSimulatorTests
 
             convert.Should().Be(new Action
             {
-                Type = ActionEnum.Place,
+                ActionType = ActionType.Place,
                 Position = (0,0),
                 Facing = Direction.North
+            });
+        }
+        
+        
+        [Test]
+        public void ConvertPlaceInStructuredDataWithSouth()
+        {
+            IInterpreter interpreter = new CommandInterpreter();
+
+            var convert = interpreter.Convert("PLACE 0,0,SOUTH");
+
+            convert.Should().Be(new Action
+            {
+                ActionType = ActionType.Place,
+                Position = (0,0),
+                Facing = Direction.South
             });
         }
         
@@ -32,17 +48,17 @@ namespace ToyRobotSimulatorTests
 
             convert.Should().Be(new Action
             {
-                Type = ActionEnum.Place,
+                ActionType = ActionType.Place,
                 Position = (2,3),
                 Facing = Direction.North
             });
         }
 
-        [TestCase("REPORT", ActionEnum.Report)]
-        [TestCase("MOVE", ActionEnum.Move)]
-        [TestCase("LEFT", ActionEnum.Left)]
-        [TestCase("RIGHT", ActionEnum.Right)]
-        public void ConvertReportInStructuredData(string action, ActionEnum enumAction)
+        [TestCase("REPORT", ActionType.Report)]
+        [TestCase("MOVE", ActionType.Move)]
+        [TestCase("LEFT", ActionType.Left)]
+        [TestCase("RIGHT", ActionType.Right)]
+        public void ConvertReportInStructuredData(string action, ActionType actionType)
         {
             IInterpreter interpreter = new CommandInterpreter();
 
@@ -50,7 +66,7 @@ namespace ToyRobotSimulatorTests
 
             convert.Should().Be(new Action
             {
-                Type = enumAction,
+                ActionType = actionType,
             });
         }
     }

@@ -13,29 +13,35 @@ namespace ToyRobotSimulator
 
         public Action Convert(string line)
         {
-            Dictionary<string, ActionEnum> dictionary = new Dictionary<string, ActionEnum>
+            Dictionary<string, ActionType> dictionary = new Dictionary<string, ActionType>
             {
-                {"PLACE", ActionEnum.Place},
-                {"MOVE", ActionEnum.Move},
-                {"REPORT", ActionEnum.Report},
-                {"LEFT", ActionEnum.Left},
-                {"RIGHT", ActionEnum.Right}
+                {"PLACE", ActionType.Place},
+                {"MOVE", ActionType.Move},
+                {"REPORT", ActionType.Report},
+                {"LEFT", ActionType.Left},
+                {"RIGHT", ActionType.Right}
             };
             var TypeAndOther = line.Split(_separator);
-
-            var action = dictionary[TypeAndOther[0]];
-            if (action != ActionEnum.Place)
+            var type = dictionary[TypeAndOther[0]];
+            if (type != ActionType.Place)
             {
-                return new() {Type = action};
+                return new() {ActionType = type};
             }
 
             var other = TypeAndOther[1].Split(",");
-            
+            var rawDirection = other[2];
+            Dictionary<string, Direction> directions = new()
+            {
+                {"NORTH", Direction.North},
+                {"SOUTH", Direction.South},
+                {"WEST", Direction.West},
+                {"EAST", Direction.East},
+            };
             return new Action()
             {
-                Type = dictionary[TypeAndOther[0]],
+                ActionType = dictionary[TypeAndOther[0]],
                 Position = (uint.Parse(other[0]), uint.Parse(other[1])),
-                Facing = Direction.North
+                Facing = directions[rawDirection]
             };
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace ToyRobotSimulator
 {
-    public enum ActionEnum
+    public enum ActionType
     {
         Place,
         Move,

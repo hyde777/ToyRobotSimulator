@@ -19,7 +19,7 @@ namespace ToyRobotSimulator
 
         public async Task Execute(Action action)
         {
-            if (ActionEnum.Place == action.Type)
+            if (ActionType.Place == action.ActionType)
             {
                 if (action.Position.X >= _dimension.X
                     || action.Position.Y >= _dimension.Y)
@@ -31,18 +31,18 @@ namespace ToyRobotSimulator
             }
             if(_robotPlaced is null) {return;}
 
-            switch (action.Type)
+            switch (action.ActionType)
             {
-                case ActionEnum.Move:
+                case ActionType.Move:
                     _robotPlaced = _robotPlaced.Move(_dimension);
                     break;
-                case ActionEnum.Left:
+                case ActionType.Left:
                     _robotPlaced = _robotPlaced.TurnLeft();
                     break;
-                case ActionEnum.Right:
+                case ActionType.Right:
                     _robotPlaced = _robotPlaced.TurnRight();
                     break;
-                case ActionEnum.Report:
+                case ActionType.Report:
                     await _output.Print(_robotPlaced.Report());
                     break;
             }
