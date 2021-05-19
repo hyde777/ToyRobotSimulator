@@ -25,5 +25,16 @@ namespace ToyRobotSimulatorTests
 
             turnAntiClockWise.Should().BeOfType<South>();
         }
+        
+        [Test]
+        public void SouthShouldBeEastWhenTurnedAntiClockWise()
+        {
+            ICardinalite north = new South();
+
+            var turnAntiClockWise = north.TurnAntiClockWise();
+
+            turnAntiClockWise.Should().BeOfType<East>();
+        }
+        
     }
 }

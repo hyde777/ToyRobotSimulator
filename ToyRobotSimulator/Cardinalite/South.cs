@@ -9,7 +9,7 @@
 
         public ICardinalite TurnAntiClockWise()
         {
-            throw new System.NotImplementedException();
+            return new East();
         }
     }
 }
