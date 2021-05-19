@@ -19,8 +19,8 @@ namespace ToyRobotSimulator
         {
             if (ActionEnum.Place == action.Type)
             {
-                if (action.Position.X > _dimension.X
-                    || action.Position.Y > _dimension.Y)
+                if (action.Position.X >= _dimension.X
+                    || action.Position.Y >= _dimension.Y)
                 {
                     throw new RobotOutOfTableTopException();
                 }

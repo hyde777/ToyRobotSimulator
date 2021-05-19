@@ -36,13 +36,13 @@ namespace ToyRobotSimulatorTests
             
             _robotfactoryMock.Verify(x => x.Create(position, direction));
         }
+        
 
         [Test]
         public void ShouldNotPlaceANewRobotWhenOutsideTableTopXDimension()
         {
             var direction = Direction.North;
-            var outsideOfDimensionX = _dimensions.X + 1;
-            var position = (dimensionsX: outsideOfDimensionX ,(uint)0);
+            var position = _dimensions;
             var action = new Action
             {
                 Type = ActionEnum.Place,
