@@ -9,7 +9,7 @@ namespace ToyRobotSimulatorTests
     public class InterpreterTests
     {
         [Test]
-        public void METHOD()
+        public void ConvertPlaceInStructuredData()
         {
             IInterpreter interpreter = new CommandInterpreter();
 

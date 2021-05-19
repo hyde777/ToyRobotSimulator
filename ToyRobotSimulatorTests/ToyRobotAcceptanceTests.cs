@@ -16,7 +16,7 @@ namespace ToyRobotSimulatorTests
         public void AcceptanceExampleATest()
         {
             var mock = new Mock<IMyOutput>();
-            ITableTop tabletop = new TableTop();
+            ITableTop tabletop = new TableTop(Mock.Of<IRobotFactory>());
             IReader reader = new FileReader();
             IInterpreter interpreter = new CommandInterpreter();
             IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(mock.Object, reader, tabletop, interpreter);
