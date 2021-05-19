@@ -43,7 +43,7 @@ namespace ToyRobotSimulator
                     _robotPlaced = _robotPlaced.TurnRight();
                     break;
                 case ActionEnum.Report:
-                    _robotPlaced.Report();
+                    _output.Print(_robotPlaced.Report());
                     break;
             }
         }
