@@ -22,6 +22,21 @@ namespace ToyRobotSimulatorTests
                 Facing = Direction.North
             });
         }
+        
+        [Test]
+        public void ConvertPlaceInStructuredDataBis()
+        {
+            IInterpreter interpreter = new CommandInterpreter();
+
+            var convert = interpreter.Convert("PLACE 2,3,NORTH");
+
+            convert.Should().Be(new Action
+            {
+                Type = ActionEnum.Place,
+                Position = (2,3),
+                Facing = Direction.North
+            });
+        }
 
         [TestCase("REPORT", ActionEnum.Report)]
         [TestCase("MOVE", ActionEnum.Move)]
