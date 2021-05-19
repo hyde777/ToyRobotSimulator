@@ -82,13 +82,24 @@ namespace ToyRobotSimulatorTests
         }
 
         [Test]
-        public void ShouldMoveRobotInTheDirectionFacing()
+        public void ShouldMoveRobotInTheDirectionNorthFacing()
         {
-            var robot = new Robot((0,0), Direction.North);
+            var robot = new Robot(_southWestCorner, Direction.North);
 
             var movedRobot = robot.Move();
 
             movedRobot.Should().Be(new Robot((_southWestCorner.X + 1, _southWestCorner.Y), Direction.North));
+        }
+
+        [Test]
+        public void ShouldMoveRobotInTheDirectionSouth()
+        {
+            (uint x, uint y) valueTuple = (2,0);
+            var robot = new Robot(valueTuple, Direction.South);
+
+            var movedRobot = robot.Move();
+
+            movedRobot.Should().Be(new Robot((valueTuple.x - 1, valueTuple.y), Direction.South));
         }
     }
 }

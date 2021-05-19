@@ -2,6 +2,7 @@
 {
     public enum Direction
     {
-        North
+        North,
+        South
     }
 }
