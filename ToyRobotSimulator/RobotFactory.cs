@@ -7,7 +7,7 @@ namespace ToyRobotSimulator
     {
         public Task<IRobot> Create((uint, uint) position, Direction direction)
         {
-            Dictionary<Direction, IOrientation> dictionary = new Dictionary<Direction, IOrientation>
+            Dictionary<Direction, IOrientation> dictionary = new ()
             {
                 {Direction.North, new North()},
                 {Direction.South, new South()},

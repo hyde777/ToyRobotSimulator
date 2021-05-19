@@ -25,9 +25,6 @@
 
         public Robot TurnRight() => new(_position, _direction.TurnClockWise());
 
-        public string Report()
-        {
-            return $"{_position.X},{_position.Y},{_direction}";
-        }
+        public string Report() => $"{_position.X},{_position.Y},{_direction}";
     }
 }

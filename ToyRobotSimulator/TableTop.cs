@@ -20,8 +20,7 @@ namespace ToyRobotSimulator
         {
             if (ActionType.Place == action.ActionType)
             {
-                if (action.Position.X >= _dimension.X
-                    || action.Position.Y >= _dimension.Y)
+                if (IsOutOfDimension(action.Position))
                 {
                     return;
                 }
@@ -45,6 +44,12 @@ namespace ToyRobotSimulator
                     await _output.Print(_robotPlaced.Report());
                     break;
             }
+        }
+
+        private bool IsOutOfDimension((uint X, uint Y) actionPosition)
+        {
+            return actionPosition.X >= _dimension.X
+                   || actionPosition.Y >= _dimension.Y;
         }
     }
 }

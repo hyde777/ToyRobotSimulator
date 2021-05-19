@@ -9,5 +9,7 @@
 
         public IOrientation TurnAntiClockWise() => new East();
         public IOrientation TurnClockWise() => new West();
+
+        public override string ToString() => "SOUTH";
     }
 }
