@@ -7,6 +7,7 @@ namespace ToyRobotSimulator
     {
         private readonly IRobotFactory _robotFactory;
         private readonly (uint X, uint Y) _dimension;
+        private IRobot _robot;
 
         public TableTop(IRobotFactory robotFactory, (uint X, uint Y) dimension)
         {
@@ -14,18 +15,28 @@ namespace ToyRobotSimulator
             _dimension = dimension;
         }
 
-        public async Task<Robot> Place(Action action)
+        public async Task Execute(Action action)
         {
-            if (action.Type != ActionEnum.Place) throw new NotImplementedException();
-            
-            if (action.Position.X > _dimension.X 
-                || action.Position.Y > _dimension.Y)
+            if (ActionEnum.Place == action.Type)
             {
-                throw new RobotOutOfTableTopException();
+                if (action.Position.X > _dimension.X
+                    || action.Position.Y > _dimension.Y)
+                {
+                    throw new RobotOutOfTableTopException();
+                }
+
+                _robot = await _robotFactory.Create(action.Position, Direction.North);
             }
 
-            return await _robotFactory.Create(action.Position, Direction.North);
+            if (ActionEnum.Move == action.Type)
+            {
+                _robot = _robot.Move();
+            }
 
+            if (ActionEnum.Left == action.Type)
+            {
+                _robot = _robot.TurnLeft();
+            }
         }
     }
 }

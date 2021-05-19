@@ -28,7 +28,7 @@ namespace ToyRobotSimulatorTests
             var direction = Direction.North;
             var position = _southWestCorner;
             
-            _tableTop.Place(new Action
+            _tableTop.Execute(new Action
             {
                 Type = ActionEnum.Place,
                 Position = position,
@@ -51,9 +51,9 @@ namespace ToyRobotSimulatorTests
                 Facing = direction
             };
             
-            _tableTop.Place(action);
+            _tableTop.Execute(action);
             
-            _tableTop.Invoking(x => x.Place(action)).Should().Throw<RobotOutOfTableTopException>();
+            _tableTop.Invoking(x => x.Execute(action)).Should().Throw<RobotOutOfTableTopException>();
             _robotfactoryMock.Verify(x => x.Create(position, direction), Times.Never);
         }
 
@@ -65,13 +65,13 @@ namespace ToyRobotSimulatorTests
             var position = ((uint)0 ,outsideOfDimensionY);
             var place = Place(position, direction);
             
-            _tableTop.Place(place);
+            _tableTop.Execute(place);
             
-            _tableTop.Invoking(x => x.Place(place)).Should().Throw<RobotOutOfTableTopException>();
+            _tableTop.Invoking(x => x.Execute(place)).Should().Throw<RobotOutOfTableTopException>();
             _robotfactoryMock.Verify(x => x.Create(position, direction), Times.Never);
         }
 
-        private static Action Place((uint, uint outsideOfDimensionY) position, Direction direction)
+        private Action Place((uint, uint outsideOfDimensionY) position, Direction direction)
         {
             return new()
             {
@@ -81,5 +81,30 @@ namespace ToyRobotSimulatorTests
             };
         }
 
+        [Test]
+        public void ShouldMoveOnceIfPlacedBeforeHand()
+        {
+            var mock = new Mock<IRobot>();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+                .Returns(Task.FromResult(mock.Object));
+            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+
+            _tableTop.Execute(new Action {Type = ActionEnum.Move});
+
+            mock.Verify(rob => rob.Move(), Times.Once);
+        }
+
+        [Test]
+        public void ShouldTurnLeftIfPlacedBeforeHand()
+        {
+            var mock = new Mock<IRobot>();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+                .Returns(Task.FromResult(mock.Object));
+            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+
+            _tableTop.Execute(new Action {Type = ActionEnum.Left});
+
+            mock.Verify(rob => rob.TurnLeft(), Times.Once);
+        }
     }
 }

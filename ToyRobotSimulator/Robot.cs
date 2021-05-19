@@ -3,7 +3,14 @@ using System.Threading.Tasks;
 
 namespace ToyRobotSimulator
 {
-    public record Robot
+    public interface IRobot
+    {
+        Robot Move();
+        Robot TurnLeft();
+        Robot TurnRight();
+    }
+
+    public record Robot : IRobot
     {
         private readonly (uint X, uint Y) _position;
         private readonly IOrientation _direction;
@@ -14,13 +21,10 @@ namespace ToyRobotSimulator
             _direction = direction;
         }
         
-        public Robot Move()
-        {
-            return new(_direction.CalculateMovement(_position), _direction);
-        }
+        public Robot Move() => new(_direction.CalculateMovement(_position), _direction);
 
         public Robot TurnLeft() => new(_position, _direction.TurnAntiClockWise());
 
-        public Robot TurnRight() => new(_position, _direction.TurnAntiClockWise());
+        public Robot TurnRight() => new(_position, _direction.TurnClockWise());
     }
 }
