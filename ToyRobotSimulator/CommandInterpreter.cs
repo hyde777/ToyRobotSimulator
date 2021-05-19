@@ -4,6 +4,7 @@ namespace ToyRobotSimulator
 {
     public class CommandInterpreter : IInterpreter
     {
+        private const string PlaceSeparator = ",";
         private readonly string _separator;
 
         public CommandInterpreter()
@@ -13,7 +14,7 @@ namespace ToyRobotSimulator
 
         public Action Convert(string line)
         {
-            Dictionary<string, ActionType> dictionary = new Dictionary<string, ActionType>
+            Dictionary<string, ActionType> actionTypes = new Dictionary<string, ActionType>
             {
                 {"PLACE", ActionType.Place},
                 {"MOVE", ActionType.Move},
@@ -22,13 +23,13 @@ namespace ToyRobotSimulator
                 {"RIGHT", ActionType.Right}
             };
             var TypeAndOther = line.Split(_separator);
-            var type = dictionary[TypeAndOther[0]];
+            var type = actionTypes[TypeAndOther[0]];
             if (type != ActionType.Place)
             {
                 return new() {ActionType = type};
             }
 
-            var other = TypeAndOther[1].Split(",");
+            var other = TypeAndOther[1].Split(PlaceSeparator);
             var rawDirection = other[2];
             Dictionary<string, Direction> directions = new()
             {
@@ -39,7 +40,7 @@ namespace ToyRobotSimulator
             };
             return new Action()
             {
-                ActionType = dictionary[TypeAndOther[0]],
+                ActionType = actionTypes[TypeAndOther[0]],
                 Position = (uint.Parse(other[0]), uint.Parse(other[1])),
                 Facing = directions[rawDirection]
             };

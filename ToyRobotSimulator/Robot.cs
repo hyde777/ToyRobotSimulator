@@ -1,16 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace ToyRobotSimulator
+﻿namespace ToyRobotSimulator
 {
-    public interface IRobot
-    {
-        Robot Move((uint X, uint Y) availableSpace);
-        Robot TurnLeft();
-        Robot TurnRight();
-        string Report();
-    }
-
     public record Robot : IRobot
     {
         private readonly (uint X, uint Y) _position;
