@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using ToyRobotSimulator;
@@ -7,9 +8,9 @@ namespace ToyRobotSimulatorTests
 {
     public class ToyRobotSimulatorAcceptances
     {
-        public ToyRobotSimulatorAcceptances((uint X, uint Y) valueTuple)
+        public ToyRobotSimulatorAcceptances()
         {
-            _valueTuple = valueTuple;
+            _valueTuple = (5,5);
         }
 
         private (uint X, uint Y) _valueTuple;
@@ -20,7 +21,7 @@ namespace ToyRobotSimulatorTests
         }
 
         [Test]
-        public void AcceptanceExampleATest()
+        public async Task AcceptanceExampleATest()
         {
             var mock = new Mock<IMyOutput>();
             ITableTop tabletop = new TableTop(new RobotFactory(), _valueTuple, mock.Object);
@@ -29,7 +30,7 @@ namespace ToyRobotSimulatorTests
             IToyRobotSimulator trs = new ToyRobotSimulator.ToyRobotSimulator(reader, tabletop, interpreter);
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "ExampleA.txt");
             
-            trs.Command(filePath);
+            await trs.Command(filePath);
             
             mock.Verify(x => x.Print("0,1,NORTH"));
         }

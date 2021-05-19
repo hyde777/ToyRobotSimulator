@@ -104,5 +104,16 @@ namespace ToyRobotSimulatorTests
             
             orientation.Verify(x => x.TurnClockWise(), Times.Once);
         }
+
+        [Test]
+        public void ShouldReport()
+        {
+            (uint x, uint y) position = (0,2);
+            var robot = new Robot(position, new North());
+
+            var report = robot.Report();
+
+            report.Should().Be("0,2,NORTH");
+        }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace ToyRobotSimulator
+﻿using System.Threading.Tasks;
+
+namespace ToyRobotSimulator
 {
     public interface IToyRobotSimulator
     {
-        void Command(string filePath);
+        Task Command(string filePath);
     }
 }

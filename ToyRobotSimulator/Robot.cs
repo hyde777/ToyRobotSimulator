@@ -35,9 +35,10 @@ namespace ToyRobotSimulator
         public Robot TurnLeft() => new(_position, _direction.TurnAntiClockWise());
 
         public Robot TurnRight() => new(_position, _direction.TurnClockWise());
+
         public string Report()
         {
-            throw new NotImplementedException();
+            return $"{_position.X},{_position.Y},{_direction}";
         }
     }
 }

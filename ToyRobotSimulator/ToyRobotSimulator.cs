@@ -1,4 +1,6 @@
-﻿namespace ToyRobotSimulator
+﻿using System.Threading.Tasks;
+
+namespace ToyRobotSimulator
 {
     public class ToyRobotSimulator : IToyRobotSimulator
     {
@@ -15,7 +17,7 @@
             _interpreter = interpreter;
         }
 
-        public async void Command(string filePath)
+        public async Task Command(string filePath)
         {
             var readFromFile = _reader.ReadFromFile(filePath);
             await foreach (var line in readFromFile)

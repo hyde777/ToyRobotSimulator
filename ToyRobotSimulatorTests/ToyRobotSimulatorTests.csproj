@@ -18,4 +18,10 @@
       <ProjectReference Include="..\ToyRobotSimulator\ToyRobotSimulator.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="ExampleA.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
