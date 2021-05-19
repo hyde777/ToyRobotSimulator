@@ -7,7 +7,7 @@ namespace ToyRobotSimulator
     {
         private readonly IRobotFactory _robotFactory;
         private readonly (uint X, uint Y) _dimension;
-        private IRobot _robot;
+        private IRobot _robotPlaced;
 
         public TableTop(IRobotFactory robotFactory, (uint X, uint Y) dimension)
         {
@@ -25,22 +25,23 @@ namespace ToyRobotSimulator
                     throw new RobotOutOfTableTopException();
                 }
 
-                _robot = await _robotFactory.Create(action.Position, Direction.North);
+                _robotPlaced = await _robotFactory.Create(action.Position, Direction.North);
             }
-
+            if(_robotPlaced is null) {return;}
+            
             if (ActionEnum.Move == action.Type)
             {
-                _robot = _robot.Move();
+                _robotPlaced = _robotPlaced.Move();
             }
 
             if (ActionEnum.Left == action.Type)
             {
-                _robot = _robot.TurnLeft();
+                _robotPlaced = _robotPlaced.TurnLeft();
             }
 
             if (ActionEnum.Right == action.Type)
             {
-                _robot = _robot.TurnRight();
+                _robotPlaced = _robotPlaced.TurnRight();
             }
         }
     }

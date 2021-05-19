@@ -1,5 +1,6 @@
 ﻿namespace ToyRobotSimulator
 {
+
     public record Action
     {
         public ActionEnum Type { get; init; }

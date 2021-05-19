@@ -3,7 +3,6 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using ToyRobotSimulator;
-using Action = ToyRobotSimulator.Action;
 
 namespace ToyRobotSimulatorTests
 {
@@ -118,7 +117,22 @@ namespace ToyRobotSimulatorTests
             _tableTop.Execute(new Action {Type = ActionEnum.Right});
 
             mock.Verify(rob => rob.TurnRight(), Times.Once);
+        }
 
+        [Test]
+        public void SHouldDoNothingIfRobotNotPlaced()
+        {
+            var mock = new Mock<IRobot>();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+                .Returns(Task.FromResult(mock.Object));
+
+            _tableTop.Execute(new Action {Type = ActionEnum.Right});
+            _tableTop.Execute(new Action {Type = ActionEnum.Move});
+            _tableTop.Execute(new Action {Type = ActionEnum.Left});
+
+            mock.Verify(rob => rob.TurnRight(), Times.Never);
+            mock.Verify(rob => rob.TurnLeft(), Times.Never);
+            mock.Verify(rob => rob.Move(), Times.Never);
         }
     }
 }
