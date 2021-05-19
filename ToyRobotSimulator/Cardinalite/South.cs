@@ -8,9 +8,6 @@
         }
 
         public IOrientation TurnAntiClockWise() => new East();
-        public IOrientation TurnClockWise()
-        {
-            throw new System.NotImplementedException();
-        }
+        public IOrientation TurnClockWise() => new West();
     }
 }

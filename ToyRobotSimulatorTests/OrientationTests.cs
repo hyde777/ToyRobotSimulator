@@ -55,5 +55,35 @@ namespace ToyRobotSimulatorTests
 
             turnAntiClockWise.Should().BeOfType<East>();
         }
+        
+        [Test]
+        public void EastShouldBeSouthWhenTurnedClockWise()
+        {
+            IOrientation east = new East();
+
+            var turnAntiClockWise = east.TurnClockWise();
+
+            turnAntiClockWise.Should().BeOfType<South>();
+        }
+        
+        [Test]
+        public void SouthShouldBeWestWhenTurnedClockWise()
+        {
+            IOrientation south = new South();
+
+            var turnAntiClockWise = south.TurnClockWise();
+
+            turnAntiClockWise.Should().BeOfType<West>();
+        }
+        
+        [Test]
+        public void WestShouldBeNorthWhenTurnedClockWise()
+        {
+            IOrientation west = new West();
+
+            var turnAntiClockWise = west.TurnClockWise();
+
+            turnAntiClockWise.Should().BeOfType<North>();
+        }
     }
 }
