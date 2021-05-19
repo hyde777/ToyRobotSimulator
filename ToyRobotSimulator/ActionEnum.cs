@@ -2,6 +2,7 @@
 {
     public enum ActionEnum
     {
-        Place
+        Place,
+        Move
     }
 }

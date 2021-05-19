@@ -4,6 +4,6 @@
     {
         public ActionEnum Type { get; init; }
         public Direction Facing { get; init; }
-        public (int X, int Y) Position { get; init; }
+        public (uint X, uint Y) Position { get; init; }
     }
 }
