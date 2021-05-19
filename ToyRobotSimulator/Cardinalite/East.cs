@@ -7,9 +7,6 @@
             return (initial.x, initial.y + 1);
         }
 
-        public ICardinalite TurnAntiClockWise()
-        {
-            throw new System.NotImplementedException();
-        }
+        public ICardinalite TurnAntiClockWise() => new North();
     }
 }
