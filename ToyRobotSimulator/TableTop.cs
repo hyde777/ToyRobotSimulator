@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace ToyRobotSimulator
 {
@@ -13,17 +14,18 @@ namespace ToyRobotSimulator
             _dimension = dimension;
         }
 
-        public async Task Execute(Action action)
+        public async Task<Robot> Place(Action action)
         {
-            if (action.Type == ActionEnum.Place)
+            if (action.Type != ActionEnum.Place) throw new NotImplementedException();
+            
+            if (action.Position.X > _dimension.X 
+                || action.Position.Y > _dimension.Y)
             {
-                if (action.Position.X > _dimension.X 
-                    || action.Position.Y > _dimension.Y)
-                {
-                    throw new RobotOutOfTableTopException();
-                }
-                await _robotFactory.Create(action.Position, Direction.North);
+                throw new RobotOutOfTableTopException();
             }
+
+            return await _robotFactory.Create(action.Position, Direction.North);
+
         }
     }
 }

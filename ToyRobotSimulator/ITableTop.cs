@@ -4,6 +4,6 @@ namespace ToyRobotSimulator
 {
     public interface ITableTop
     {
-        Task Execute(Action action);
+        Task<Robot> Place(Action action);
     }
 }
