@@ -37,6 +37,11 @@ namespace ToyRobotSimulator
             {
                 _robot = _robot.TurnLeft();
             }
+
+            if (ActionEnum.Right == action.Type)
+            {
+                _robot = _robot.TurnRight();
+            }
         }
     }
 }

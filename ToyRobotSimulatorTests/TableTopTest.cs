@@ -106,5 +106,19 @@ namespace ToyRobotSimulatorTests
 
             mock.Verify(rob => rob.TurnLeft(), Times.Once);
         }
+
+        [Test]
+        public void ShouldTurnRightIfPlacedBeforeHand()
+        {
+            var mock = new Mock<IRobot>();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+                .Returns(Task.FromResult(mock.Object));
+            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+
+            _tableTop.Execute(new Action {Type = ActionEnum.Right});
+
+            mock.Verify(rob => rob.TurnRight(), Times.Once);
+
+        }
     }
 }

@@ -4,6 +4,7 @@
     {
         Place,
         Move,
-        Left
+        Left,
+        Right
     }
 }
