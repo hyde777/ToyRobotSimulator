@@ -24,6 +24,10 @@ namespace ToyRobotSimulator
             {
                 return new Robot((_position.X - 1, _position.Y), _direction);
             }
+            else if(Direction.West == _direction)
+            {
+                return new Robot((_position.X, _position.Y - 1), _direction);
+            }
             else
             {
                 throw new NotImplementedException();
