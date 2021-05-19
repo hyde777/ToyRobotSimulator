@@ -26,6 +26,7 @@ namespace ToyRobotSimulatorTests
         [TestCase("REPORT", ActionEnum.Report)]
         [TestCase("MOVE", ActionEnum.Move)]
         [TestCase("LEFT", ActionEnum.Left)]
+        [TestCase("RIGHT", ActionEnum.Right)]
         public void ConvertReportInStructuredData(string action, ActionEnum enumAction)
         {
             IInterpreter interpreter = new CommandInterpreter();

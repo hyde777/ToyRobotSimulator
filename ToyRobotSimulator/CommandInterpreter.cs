@@ -18,7 +18,8 @@ namespace ToyRobotSimulator
                 {"PLACE", ActionEnum.Place},
                 {"MOVE", ActionEnum.Move},
                 {"REPORT", ActionEnum.Report},
-                {"LEFT", ActionEnum.Left}
+                {"LEFT", ActionEnum.Left},
+                {"RIGHT", ActionEnum.Right}
             };
             var TypeAndOther = line.Split(_separator);
             Action convert = new()
