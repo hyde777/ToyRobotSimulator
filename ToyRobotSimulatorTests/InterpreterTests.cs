@@ -24,7 +24,7 @@ namespace ToyRobotSimulatorTests
         }
         
         [Test]
-        public void ConvertPlaceInStructuredDataBis()
+        public void ConvertPlaceInStructuredDataWithDifferentXAndY()
         {
             IInterpreter interpreter = new CommandInterpreter();
 

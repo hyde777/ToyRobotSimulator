@@ -23,31 +23,31 @@ namespace ToyRobotSimulatorTests
 
             var movedRobot = robot.Move(avalableSpace);
 
-            movedRobot.Should().Be(new Robot((position.x + 1, position.y), cardinalite));
+            movedRobot.Should().Be(new Robot((position.x, position.y + 1), cardinalite));
         }
 
         [Test]
         public void ShouldMoveRobotInTheSouth()
         {
-            (uint x, uint y) position = (2,0);
+            (uint x, uint y) position = (2,2);
             var cardinalite = new South();
             var robot = new Robot(position, cardinalite);
 
             var movedRobot = robot.Move(avalableSpace);
 
-            movedRobot.Should().Be(new Robot((position.x - 1, position.y), cardinalite));
+            movedRobot.Should().Be(new Robot((position.x, position.y - 1), cardinalite));
         }
 
         [Test]
         public void ShouldMoveRobotInTheWest()
         {
-            (uint x, uint y) position = (0,2);
+            (uint x, uint y) position = (2,2);
             var cardinalite = new West();
             var robot = new Robot(position, cardinalite);
 
             var movedRobot = robot.Move(avalableSpace);
 
-            movedRobot.Should().BeEquivalentTo(new Robot((position.x, position.y - 1), cardinalite));
+            movedRobot.Should().BeEquivalentTo(new Robot((position.x - 1, position.y), cardinalite));
         } 
         
         [Test]
@@ -59,7 +59,7 @@ namespace ToyRobotSimulatorTests
 
             var movedRobot = robot.Move(avalableSpace);
 
-            movedRobot.Should().BeEquivalentTo(new Robot((position.x, position.y + 1), cardinalite));
+            movedRobot.Should().BeEquivalentTo(new Robot((position.x + 1, position.y), cardinalite));
         }
         
         [Test]

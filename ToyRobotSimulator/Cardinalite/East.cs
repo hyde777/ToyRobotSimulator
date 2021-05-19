@@ -4,7 +4,7 @@
     {
         public (uint, uint) CalculateMovement((uint x, uint y) initial)
         {
-            return (initial.x, initial.y + 1);
+            return (initial.x + 1, initial.y);
         }
 
         public IOrientation TurnAntiClockWise() => new North();
