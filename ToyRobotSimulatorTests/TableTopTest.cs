@@ -61,7 +61,7 @@ namespace ToyRobotSimulatorTests
             _robotfactoryMock.Verify(x => x.Create(position, direction));
         }
         [Test]
-        public void ShouldNotPlaceANewRobotWhenOutsideTableTopXDimension()
+        public void ShouldIgnoreANewRobotWhenOutsideTableTopXDimension()
         {
             var direction = Direction.North;
             var position = _dimensions;
@@ -74,12 +74,11 @@ namespace ToyRobotSimulatorTests
             
             _tableTop.Execute(action);
             
-            _tableTop.Invoking(x => x.Execute(action)).Should().Throw<RobotOutOfTableTopException>();
             _robotfactoryMock.Verify(x => x.Create(position, direction), Times.Never);
         }
 
         [Test]
-        public void ShouldNotPlaceANewRobotWhenOutsideTableTopYDimension()
+        public void ShouldIgnorePlaceANewRobotWhenOutsideTableTopYDimension()
         {
             var direction = Direction.North;
             var outsideOfDimensionY = _dimensions.Y + 1;
@@ -88,7 +87,6 @@ namespace ToyRobotSimulatorTests
             
             _tableTop.Execute(place);
             
-            _tableTop.Invoking(x => x.Execute(place)).Should().Throw<RobotOutOfTableTopException>();
             _robotfactoryMock.Verify(x => x.Create(position, direction), Times.Never);
         }
 

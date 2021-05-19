@@ -24,7 +24,7 @@ namespace ToyRobotSimulator
                 if (action.Position.X >= _dimension.X
                     || action.Position.Y >= _dimension.Y)
                 {
-                    throw new RobotOutOfTableTopException();
+                    return;
                 }
 
                 _robotPlaced = await _robotFactory.Create(action.Position, action.Facing);
