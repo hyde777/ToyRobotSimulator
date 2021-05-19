@@ -6,9 +6,9 @@ namespace ToyRobotSimulator
     public record Robot
     {
         private readonly (uint X, uint Y) _position;
-        private readonly Direction _direction;
+        private readonly ICardinalite _direction;
         
-        public Robot((uint, uint) position, Direction direction)
+        public Robot((uint, uint) position, ICardinalite direction)
         {
             _position = position;
             _direction = direction;
@@ -16,22 +16,36 @@ namespace ToyRobotSimulator
         
         public Robot Move()
         {
-            if (Direction.North == _direction)
-            {
-                return new Robot((_position.X + 1, _position.Y), _direction);
-            }
-            else if (Direction.South == _direction)
-            {
-                return new Robot((_position.X - 1, _position.Y), _direction);
-            }
-            else if(Direction.West == _direction)
-            {
-                return new Robot((_position.X, _position.Y - 1), _direction);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
+            return new(_direction.CalculateMovement(_position), _direction);
+        }
+    }
+
+    public interface ICardinalite
+    {
+        (uint, uint) CalculateMovement((uint x, uint y) initial);
+    }
+
+    public class South : ICardinalite
+    {
+        public (uint, uint) CalculateMovement((uint x, uint y) initial)
+        {
+            return (initial.x - 1, initial.y);
+        }
+    }
+
+    public class North : ICardinalite
+    {
+        public (uint, uint) CalculateMovement((uint x, uint y) initial)
+        {
+            return (initial.x + 1, initial.y);
+        }
+    }
+
+    public class West : ICardinalite
+    {
+        public (uint, uint) CalculateMovement((uint x, uint y) initial)
+        {
+            return (initial.x, initial.y - 1);
         }
     }
 }

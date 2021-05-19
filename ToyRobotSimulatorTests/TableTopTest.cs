@@ -84,33 +84,56 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void ShouldMoveRobotInTheNorth()
         {
-            var robot = new Robot(_southWestCorner, Direction.North);
+            var cardinalite = new North();
+            var robot = new Robot(_southWestCorner, cardinalite);
 
             var movedRobot = robot.Move();
 
-            movedRobot.Should().Be(new Robot((_southWestCorner.X + 1, _southWestCorner.Y), Direction.North));
+            movedRobot.Should().Be(new Robot((_southWestCorner.X + 1, _southWestCorner.Y), cardinalite));
         }
 
         [Test]
         public void ShouldMoveRobotInTheSouth()
         {
             (uint x, uint y) position = (2,0);
-            var robot = new Robot(position, Direction.South);
+            var cardinalite = new South();
+            var robot = new Robot(position, cardinalite);
 
             var movedRobot = robot.Move();
 
-            movedRobot.Should().Be(new Robot((position.x - 1, position.y), Direction.South));
+            movedRobot.Should().Be(new Robot((position.x - 1, position.y), cardinalite));
         }
 
         [Test]
         public void ShouldMoveRobotInTheWest()
         {
             (uint x, uint y) position = (0,2);
-            var robot = new Robot(position, Direction.West);
+            var cardinalite = new West();
+            var robot = new Robot(position, cardinalite);
 
             var movedRobot = robot.Move();
 
-            movedRobot.Should().Be(new Robot((position.x, position.y - 1), Direction.West));
+            movedRobot.Should().BeEquivalentTo(new Robot((position.x, position.y - 1), cardinalite));
+        } 
+        
+        [Test]
+        public void ShouldMoveRobotInEast()
+        {
+            (uint x, uint y) position = (0,2);
+            var cardinalite = new East();
+            var robot = new Robot(position, cardinalite);
+
+            var movedRobot = robot.Move();
+
+            movedRobot.Should().BeEquivalentTo(new Robot((position.x, position.y + 1), cardinalite));
+        }
+    }
+
+    public class East : ICardinalite
+    {
+        public (uint, uint) CalculateMovement((uint x, uint y) initial)
+        {
+            return (initial.x, initial.y + 1);
         }
     }
 }
