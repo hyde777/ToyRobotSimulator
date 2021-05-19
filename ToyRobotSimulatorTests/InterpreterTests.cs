@@ -22,31 +22,19 @@ namespace ToyRobotSimulatorTests
                 Facing = Direction.North
             });
         }
-        
-        
-        [Test]
-        public void ConvertMoveInStructuredData()
+
+        [TestCase("REPORT", ActionEnum.Report)]
+        [TestCase("MOVE", ActionEnum.Move)]
+        [TestCase("LEFT", ActionEnum.Left)]
+        public void ConvertReportInStructuredData(string action, ActionEnum enumAction)
         {
             IInterpreter interpreter = new CommandInterpreter();
 
-            var convert = interpreter.Convert("MOVE");
+            var convert = interpreter.Convert(action);
 
             convert.Should().Be(new Action
             {
-                Type = ActionEnum.Move,
-            });
-        }
-
-        [Test]
-        public void ConvertReportInStructuredData()
-        {
-            IInterpreter interpreter = new CommandInterpreter();
-
-            var convert = interpreter.Convert("REPORT");
-
-            convert.Should().Be(new Action
-            {
-                Type = ActionEnum.Report,
+                Type = enumAction,
             });
         }
     }

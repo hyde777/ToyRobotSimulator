@@ -2,6 +2,6 @@
 {
     public interface IInterpreter
     {
-        Action Convert(string placeNorth);
+        Action Convert(string line);
     }
 }
