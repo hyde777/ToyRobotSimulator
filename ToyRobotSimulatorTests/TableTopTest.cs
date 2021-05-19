@@ -8,14 +8,20 @@ namespace ToyRobotSimulatorTests
 {
     public class TableTopTest
     {
-        private readonly Mock<IRobotFactory> _robotfactoryMock;
-        private readonly ITableTop _tableTop;
-        private readonly (uint X, uint Y) _dimensions;
-        private readonly (uint X, uint Y) _southWestCorner;
+        private Mock<IRobotFactory> _robotfactoryMock;
+        private ITableTop _tableTop;
+        private (uint X, uint Y) _dimensions;
+        private (uint X, uint Y) _southWestCorner;
         private IMyOutput _mockObject;
 
         public TableTopTest()
         {
+           
+        }
+
+        [SetUp]
+        public void Setup()
+        { 
             _robotfactoryMock = new Mock<IRobotFactory>();
             _dimensions = (5, 5);
             _tableTop = new TableTop(_robotfactoryMock.Object, _dimensions, _mockObject);
@@ -39,7 +45,21 @@ namespace ToyRobotSimulatorTests
             _robotfactoryMock.Verify(x => x.Create(position, direction));
         }
         
-
+        [Test]
+        public void ShouldPlaceANewRobotWhenPlaceIsOnBis()
+        {
+            var direction = Direction.South;
+            var position = _southWestCorner;
+            
+            _tableTop.Execute(new Action
+            {
+                ActionType = ActionType.Place,
+                Position = position,
+                Facing = direction
+            });
+            
+            _robotfactoryMock.Verify(x => x.Create(position, direction));
+        }
         [Test]
         public void ShouldNotPlaceANewRobotWhenOutsideTableTopXDimension()
         {

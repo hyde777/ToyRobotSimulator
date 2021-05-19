@@ -27,7 +27,7 @@ namespace ToyRobotSimulator
                     throw new RobotOutOfTableTopException();
                 }
 
-                _robotPlaced = await _robotFactory.Create(action.Position, Direction.North);
+                _robotPlaced = await _robotFactory.Create(action.Position, action.Facing);
             }
             if(_robotPlaced is null) {return;}
 
