@@ -4,12 +4,12 @@ using ToyRobotSimulator;
 
 namespace ToyRobotSimulatorTests
 {
-    public class CardinaliteTests
+    public class OrientationTests
     {
         [Test]
         public void NorthShouldBeWestWhenTurnedAntiClockWise()
         {
-            ICardinalite north = new North();
+            IOrientation north = new North();
 
             var turnAntiClockWise = north.TurnAntiClockWise();
 
@@ -19,9 +19,9 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void WestShouldBeSouthWhenTurnedAntiClockWise()
         {
-            ICardinalite north = new West();
+            IOrientation west = new West();
 
-            var turnAntiClockWise = north.TurnAntiClockWise();
+            var turnAntiClockWise = west.TurnAntiClockWise();
 
             turnAntiClockWise.Should().BeOfType<South>();
         }
@@ -29,9 +29,9 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void SouthShouldBeEastWhenTurnedAntiClockWise()
         {
-            ICardinalite north = new South();
+            IOrientation south = new South();
 
-            var turnAntiClockWise = north.TurnAntiClockWise();
+            var turnAntiClockWise = south.TurnAntiClockWise();
 
             turnAntiClockWise.Should().BeOfType<East>();
         }
@@ -39,9 +39,9 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void EastShouldBeNorthWhenTurnedAntiClockWise()
         {
-            ICardinalite north = new East();
+            IOrientation east = new East();
 
-            var turnAntiClockWise = north.TurnAntiClockWise();
+            var turnAntiClockWise = east.TurnAntiClockWise();
 
             turnAntiClockWise.Should().BeOfType<North>();
         }

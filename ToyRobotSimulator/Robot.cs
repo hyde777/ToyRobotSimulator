@@ -6,9 +6,9 @@ namespace ToyRobotSimulator
     public record Robot
     {
         private readonly (uint X, uint Y) _position;
-        private readonly ICardinalite _direction;
+        private readonly IOrientation _direction;
         
-        public Robot((uint, uint) position, ICardinalite direction)
+        public Robot((uint, uint) position, IOrientation direction)
         {
             _position = position;
             _direction = direction;
@@ -21,7 +21,7 @@ namespace ToyRobotSimulator
 
         public Robot TurnLeft()
         {
-            return new(_position, new West());
+            return new(_position, _direction.TurnAntiClockWise());
         }
     }
 }

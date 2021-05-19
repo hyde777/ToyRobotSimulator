@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 using ToyRobotSimulator;
 
@@ -53,6 +54,18 @@ namespace ToyRobotSimulatorTests
             var movedRobot = robot.Move();
 
             movedRobot.Should().BeEquivalentTo(new Robot((position.x, position.y + 1), cardinalite));
+        }
+
+        [Test]
+        public void ShouldTurnRobotFromNorthToWestWhenLeft()
+        {
+            (uint x, uint y) position = (0,2);
+            var orientation = new Mock<IOrientation>();
+            var robot = new Robot(position, orientation.Object);
+
+            robot.TurnLeft();
+            
+            orientation.Verify(x => x.TurnAntiClockWise(), Times.Once);
         }
     }
 }

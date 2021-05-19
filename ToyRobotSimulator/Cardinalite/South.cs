@@ -1,12 +1,12 @@
 ﻿namespace ToyRobotSimulator
 {
-    public class South : ICardinalite
+    public class South : IOrientation
     {
         public (uint, uint) CalculateMovement((uint x, uint y) initial)
         {
             return (initial.x - 1, initial.y);
         }
 
-        public ICardinalite TurnAntiClockWise() => new East();
+        public IOrientation TurnAntiClockWise() => new East();
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace ToyRobotSimulator
 {
-    public interface ICardinalite
+    public interface IOrientation
     {
         (uint, uint) CalculateMovement((uint x, uint y) initial);
-        ICardinalite TurnAntiClockWise();
+        IOrientation TurnAntiClockWise();
     }
 }
