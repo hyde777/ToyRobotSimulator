@@ -8,5 +8,9 @@
         }
 
         public IOrientation TurnAntiClockWise() => new South();
+        public IOrientation TurnClockWise()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -4,5 +4,6 @@
     {
         (uint, uint) CalculateMovement((uint x, uint y) initial);
         IOrientation TurnAntiClockWise();
+        IOrientation TurnClockWise();
     }
 }
