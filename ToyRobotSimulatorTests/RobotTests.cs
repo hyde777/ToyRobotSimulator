@@ -7,7 +7,13 @@ namespace ToyRobotSimulatorTests
 {
     public class RobotTests
     {
-        
+        private readonly (uint x, uint y) avalableSpace;
+
+        public RobotTests()
+        {
+            avalableSpace = (8,8);
+        }
+
         [Test]
         public void ShouldMoveRobotInTheNorth()
         {
@@ -15,7 +21,7 @@ namespace ToyRobotSimulatorTests
             var cardinalite = new North();
             var robot = new Robot(position, cardinalite);
 
-            var movedRobot = robot.Move();
+            var movedRobot = robot.Move(avalableSpace);
 
             movedRobot.Should().Be(new Robot((position.x + 1, position.y), cardinalite));
         }
@@ -27,7 +33,7 @@ namespace ToyRobotSimulatorTests
             var cardinalite = new South();
             var robot = new Robot(position, cardinalite);
 
-            var movedRobot = robot.Move();
+            var movedRobot = robot.Move(avalableSpace);
 
             movedRobot.Should().Be(new Robot((position.x - 1, position.y), cardinalite));
         }
@@ -39,7 +45,7 @@ namespace ToyRobotSimulatorTests
             var cardinalite = new West();
             var robot = new Robot(position, cardinalite);
 
-            var movedRobot = robot.Move();
+            var movedRobot = robot.Move(avalableSpace);
 
             movedRobot.Should().BeEquivalentTo(new Robot((position.x, position.y - 1), cardinalite));
         } 
@@ -51,9 +57,28 @@ namespace ToyRobotSimulatorTests
             var cardinalite = new East();
             var robot = new Robot(position, cardinalite);
 
-            var movedRobot = robot.Move();
+            var movedRobot = robot.Move(avalableSpace);
 
             movedRobot.Should().BeEquivalentTo(new Robot((position.x, position.y + 1), cardinalite));
+        }
+        
+        [Test]
+        public void IfRobotIsOutOfBoundAfterMoveNorthThrowException()
+        {
+            var robot = new Robot((avalableSpace.x - 1, avalableSpace.y - 1), new North());
+
+            var robotDidNothing = robot.Move(avalableSpace);
+            
+            robotDidNothing.Should().BeEquivalentTo(robot);
+        }
+        [Test]
+        public void IfRobotIsOutOfBoundAfterMoveEastThrowException()
+        {
+            var robot = new Robot((avalableSpace.x - 1, avalableSpace.y - 1), new East());
+
+            var robotDidNothing = robot.Move(avalableSpace);
+            
+            robotDidNothing.Should().BeEquivalentTo(robot);
         }
 
         [Test]

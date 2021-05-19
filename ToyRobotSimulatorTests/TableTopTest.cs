@@ -90,7 +90,7 @@ namespace ToyRobotSimulatorTests
 
             _tableTop.Execute(new Action {Type = ActionEnum.Move});
 
-            mock.Verify(rob => rob.Move(), Times.Once);
+            mock.Verify(rob => rob.Move(_dimensions), Times.Once);
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace ToyRobotSimulatorTests
 
             mock.Verify(rob => rob.TurnRight(), Times.Never);
             mock.Verify(rob => rob.TurnLeft(), Times.Never);
-            mock.Verify(rob => rob.Move(), Times.Never);
+            mock.Verify(rob => rob.Move(_dimensions), Times.Never);
         }
     }
 }

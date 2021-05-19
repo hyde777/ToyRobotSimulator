@@ -5,7 +5,7 @@ namespace ToyRobotSimulator
 {
     public interface IRobot
     {
-        Robot Move();
+        Robot Move((uint X, uint Y) valueTuple);
         Robot TurnLeft();
         Robot TurnRight();
     }
@@ -21,7 +21,15 @@ namespace ToyRobotSimulator
             _direction = direction;
         }
         
-        public Robot Move() => new(_direction.CalculateMovement(_position), _direction);
+        public Robot Move((uint X, uint Y) availableSpace)
+        {
+            (uint x, uint y) newMovement = _direction.CalculateMovement(_position);
+            if (newMovement.x >= availableSpace.X || newMovement.y >= availableSpace.Y)
+            {
+                return this;
+            }
+            return new(newMovement, _direction);
+        }
 
         public Robot TurnLeft() => new(_position, _direction.TurnAntiClockWise());
 

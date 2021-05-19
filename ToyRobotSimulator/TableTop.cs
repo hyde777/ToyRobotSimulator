@@ -31,7 +31,7 @@ namespace ToyRobotSimulator
             
             if (ActionEnum.Move == action.Type)
             {
-                _robotPlaced = _robotPlaced.Move();
+                _robotPlaced = _robotPlaced.Move(_dimension);
             }
 
             if (ActionEnum.Left == action.Type)
