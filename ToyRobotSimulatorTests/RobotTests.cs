@@ -115,5 +115,16 @@ namespace ToyRobotSimulatorTests
 
             report.Should().Be("0,2,NORTH");
         }
+        
+        [Test]
+        public void ShouldReportBis()
+        {
+            (uint x, uint y) position = (3,4);
+            var robot = new Robot(position, new West());
+
+            var report = robot.Report();
+
+            report.Should().Be("3,4,WEST");
+        }
     }
 }
