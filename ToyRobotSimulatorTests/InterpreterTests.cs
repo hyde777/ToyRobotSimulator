@@ -18,7 +18,7 @@ namespace ToyRobotSimulatorTests
             {
                 ActionType = ActionType.Place,
                 Position = (0,0),
-                Facing = Direction.North
+                Facing = new North()
             });
         }
         
@@ -34,7 +34,7 @@ namespace ToyRobotSimulatorTests
             {
                 ActionType = ActionType.Place,
                 Position = (0,0),
-                Facing = Direction.South
+                Facing = new South()
             });
         }
         
@@ -49,7 +49,7 @@ namespace ToyRobotSimulatorTests
             {
                 ActionType = ActionType.Place,
                 Position = (2,3),
-                Facing = Direction.North
+                Facing = new North()
             });
         }
 

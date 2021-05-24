@@ -1,6 +1,6 @@
 ﻿namespace ToyRobotSimulator
 {
-    public class South : IOrientation
+    public record South : IOrientation
     {
         public (uint, uint) CalculateMovement((uint x, uint y) initial)
         {

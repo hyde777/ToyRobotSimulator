@@ -31,7 +31,7 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void ShouldPlaceANewRobotWhenPlaceIsOn()
         {
-            var direction = Direction.North;
+            var direction = new North();
             var position = _southWestCorner;
             
             _tableTop.Execute(new Action
@@ -47,7 +47,7 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void ShouldPlaceANewRobotWhenPlaceIsOnBis()
         {
-            var direction = Direction.South;
+            var direction = new South();
             var position = _southWestCorner;
             
             _tableTop.Execute(new Action
@@ -62,7 +62,7 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void ShouldIgnoreANewRobotWhenOutsideTableTopXDimension()
         {
-            var direction = Direction.North;
+            var direction = new North();
             var position = _dimensions;
             var action = new Action
             {
@@ -79,7 +79,7 @@ namespace ToyRobotSimulatorTests
         [Test]
         public void ShouldIgnorePlaceANewRobotWhenOutsideTableTopYDimension()
         {
-            var direction = Direction.North;
+            var direction = new North();
             var outsideOfDimensionY = _dimensions.Y + 1;
             var position = ((uint)0 ,outsideOfDimensionY);
             var place = Place(position, direction);
@@ -89,7 +89,7 @@ namespace ToyRobotSimulatorTests
             _robotfactoryMock.Verify(x => x.Create(position, direction), Times.Never);
         }
 
-        private Action Place((uint, uint outsideOfDimensionY) position, Direction direction)
+        private Action Place((uint, uint outsideOfDimensionY) position, IOrientation direction)
         {
             return new()
             {
@@ -103,9 +103,9 @@ namespace ToyRobotSimulatorTests
         public void ShouldMoveOnceIfPlacedBeforeHand()
         {
             var mock = new Mock<IRobot>();
-            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, new North()))
                 .Returns(Task.FromResult(mock.Object));
-            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+            _tableTop.Execute(Place(_southWestCorner, new North()));
 
             _tableTop.Execute(new Action {ActionType = ActionType.Move});
 
@@ -116,9 +116,10 @@ namespace ToyRobotSimulatorTests
         public void ShouldTurnLeftIfPlacedBeforeHand()
         {
             var mock = new Mock<IRobot>();
-            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+            var direction = new North();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, direction))
                 .Returns(Task.FromResult(mock.Object));
-            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+            _tableTop.Execute(Place(_southWestCorner, direction));
 
             _tableTop.Execute(new Action {ActionType = ActionType.Left});
 
@@ -129,9 +130,10 @@ namespace ToyRobotSimulatorTests
         public void ShouldTurnRightIfPlacedBeforeHand()
         {
             var mock = new Mock<IRobot>();
-            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+            var direction = new North();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, direction))
                 .Returns(Task.FromResult(mock.Object));
-            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+            _tableTop.Execute(Place(_southWestCorner, direction));
 
             _tableTop.Execute(new Action {ActionType = ActionType.Right});
 
@@ -142,7 +144,7 @@ namespace ToyRobotSimulatorTests
         public void SHouldDoNothingIfRobotNotPlaced()
         {
             var mock = new Mock<IRobot>();
-            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, new North()))
                 .Returns(Task.FromResult(mock.Object));
 
             _tableTop.Execute(new Action {ActionType = ActionType.Right});
@@ -159,9 +161,10 @@ namespace ToyRobotSimulatorTests
         public void ReportIfAskedAboutIt()
         {
             var mock = new Mock<IRobot>();
-            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, Direction.North))
+            var direction = new North();
+            _robotfactoryMock.Setup(x => x.Create(_southWestCorner, direction))
                 .Returns(Task.FromResult(mock.Object));
-            _tableTop.Execute(Place(_southWestCorner, Direction.North));
+            _tableTop.Execute(Place(_southWestCorner, direction));
 
             _tableTop.Execute(new Action {ActionType = ActionType.Report});
 

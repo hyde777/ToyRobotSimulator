@@ -31,12 +31,12 @@ namespace ToyRobotSimulator
 
             var other = TypeAndOther[1].Split(PlaceSeparator);
             var rawDirection = other[2];
-            Dictionary<string, Direction> directions = new()
+            Dictionary<string, IOrientation> directions = new()
             {
-                {"NORTH", Direction.North},
-                {"SOUTH", Direction.South},
-                {"WEST", Direction.West},
-                {"EAST", Direction.East},
+                {"NORTH", new North()},
+                {"SOUTH", new South()},
+                {"WEST", new West()},
+                {"EAST", new East()},
             };
             return new Action()
             {

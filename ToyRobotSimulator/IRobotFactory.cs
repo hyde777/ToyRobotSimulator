@@ -4,6 +4,6 @@ namespace ToyRobotSimulator
 {
     public interface IRobotFactory
     {
-        Task<IRobot> Create((uint, uint) position, Direction direction);
+        Task<IRobot> Create((uint, uint) position, IOrientation direction);
     }
 }
